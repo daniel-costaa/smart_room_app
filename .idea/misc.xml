@@ -4,7 +4,9 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/danie/Documents/AndroidStudioProjects/SmartRoom/app/src/main/res/layout/activity_main.xml" value="0.2957427536231884" />
+        <entry key="..\:/Users/danie/Documents/AndroidStudioProjects/SmartRoom/app/src/main/res/layout/fragment_login.xml" value="0.2957427536231884" />
         <entry key="..\:/Users/danie/Documents/AndroidStudioProjects/SmartRoom/app/src/main/res/layout/fragment_one.xml" value="0.2957427536231884" />
+        <entry key="..\:/Users/danie/Documents/AndroidStudioProjects/SmartRoom/app/src/main/res/layout/fragment_two.xml" value="0.2957427536231884" />
       </map>
     </option>
   </component>
