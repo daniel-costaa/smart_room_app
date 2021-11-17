@@ -1,4 +1,4 @@
-package com.example.smartroom
+package com.example.smartroom.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
