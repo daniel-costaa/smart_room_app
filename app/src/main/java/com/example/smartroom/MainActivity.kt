@@ -9,32 +9,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var mainActivityMainBinding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        mainActivityMainBinding = ActivityMainBinding.inflate(LayoutInflater.from(this))
         super.onCreate(savedInstanceState)
+        mainActivityMainBinding = ActivityMainBinding.inflate(LayoutInflater.from(this))
         setContentView(mainActivityMainBinding.root)
-
-        mainActivityMainBinding.button1.setOnClickListener {
-            goToFragmentOne()
-        }
-
-        mainActivityMainBinding.button2.setOnClickListener {
-            goToFragmentTwo()
-        }
-    }
-
-    private fun goToFragmentOne() {
-        val fragmentOne = FragmentOne()
-        supportFragmentManager
-            .beginTransaction()
-            .replace(R.id.flFrament, fragmentOne)
-            .commit()
-    }
-
-    private fun goToFragmentTwo() {
-        val fragmentTwo = FragmentTwo()
-        supportFragmentManager
-            .beginTransaction()
-            .replace(R.id.flFrament, fragmentTwo)
-            .commit()
     }
 }
