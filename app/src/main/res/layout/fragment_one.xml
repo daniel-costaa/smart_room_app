@@ -7,13 +7,39 @@
     tools:context=".FragmentOne">
 
     <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/temperatureText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Fragment 1"
-        android:textColor="@android:color/background_dark"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:text="Temperatura"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/temperatureData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="@id/temperatureText"
+        app:layout_constraintTop_toBottomOf="@id/temperatureText"
+        tools:text="20ºc" />
+
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/humidityText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Umidade"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/temperatureData" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/humidityData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="95%"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/humidityText" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
