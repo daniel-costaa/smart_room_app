@@ -19,7 +19,7 @@ class FirebaseDatasource : RemoteDatasource {
         luminosidade = firebaseDatabaseReference.getReference(LUMINOSIDADE_PATH)
     }
 
-    override fun getListenerData() {
+    override fun fetchSensorData() {
     }
 
     companion object {
