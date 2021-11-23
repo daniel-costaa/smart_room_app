@@ -9,9 +9,9 @@ class FirebaseDatasource : RemoteDatasource {
         Firebase.database
     }
 
-    private lateinit var umidade: DatabaseReference
-    private lateinit var temperatura: DatabaseReference
-    private lateinit var luminosidade: DatabaseReference
+    lateinit var umidade: DatabaseReference
+    lateinit var temperatura: DatabaseReference
+    lateinit var luminosidade: DatabaseReference
 
     override fun setupListeners() {
         umidade = firebaseDatabaseReference.getReference(UMIDADE_PATH)
@@ -19,17 +19,6 @@ class FirebaseDatasource : RemoteDatasource {
         luminosidade = firebaseDatabaseReference.getReference(LUMINOSIDADE_PATH)
     }
 
-    override fun fetchTemperatureData() {
-        TODO("Not yet implemented")
-    }
-
-    override fun fetchUmidityData() {
-        TODO("Not yet implemented")
-    }
-
-    override fun fetchLuminosityData() {
-        TODO("Not yet implemented")
-    }
 
     companion object {
         private const val UMIDADE_PATH = "/umidade"
