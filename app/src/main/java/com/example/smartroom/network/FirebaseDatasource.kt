@@ -19,7 +19,16 @@ class FirebaseDatasource : RemoteDatasource {
         luminosidade = firebaseDatabaseReference.getReference(LUMINOSIDADE_PATH)
     }
 
-    override fun fetchSensorData() {
+    override fun fetchTemperatureData() {
+        TODO("Not yet implemented")
+    }
+
+    override fun fetchUmidityData() {
+        TODO("Not yet implemented")
+    }
+
+    override fun fetchLuminosityData() {
+        TODO("Not yet implemented")
     }
 
     companion object {
