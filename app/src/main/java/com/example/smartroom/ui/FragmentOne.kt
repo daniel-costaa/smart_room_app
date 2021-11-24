@@ -2,58 +2,47 @@ package com.example.smartroom.ui
 
 import android.os.Bundle
 import android.view.View
-import android.widget.TextView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.smartroom.R
+import com.example.smartroom.common.Resource
 import com.example.smartroom.databinding.FragmentOneBinding
-import com.google.firebase.database.*
-import com.google.firebase.database.ktx.database
-import com.google.firebase.ktx.Firebase
+import com.example.smartroom.network.FirebaseRepositoryImpl
+import com.example.smartroom.viewmodel.SensorsViewModel
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 
 class FragmentOne : Fragment(R.layout.fragment_one) {
     private lateinit var binding: FragmentOneBinding
-    private val firebaseDatabaseReference: FirebaseDatabase by lazy {
-        Firebase.database
-    }
+    private val sensorsViewModel: SensorsViewModel
+        get() = SensorsViewModel(FirebaseRepositoryImpl())
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentOneBinding.bind(view)
 
-        val umidade = firebaseDatabaseReference.getReference("/umidade")
-        val temperatura = firebaseDatabaseReference.getReference("/temperatura")
-        val luminosidade = firebaseDatabaseReference.getReference("/luminosidade")
-
-        setupListeners(umidade, temperatura, luminosidade)
+        observeData()
     }
 
-    private fun setupListeners(umidade: DatabaseReference, temperatura: DatabaseReference, luminosidade: DatabaseReference) {
+    private fun observeData() {
+        lifecycleScope.launch {
+            sensorsViewModel.state.collect { state ->
+                when(state) {
+                    is Resource.Success -> {
+                        binding.temperatureData.text = state.data.toString()
+                    }
+                }
+            }
+        }
+    }
+
+
+    private fun nextPageListener() {
         binding.buttonNavigateToNextFragment.setOnClickListener {
             navigateToFragmentTwo()
         }
-
-        firebaseListener(umidade, binding.humidityData)
-        firebaseListener(temperatura, binding.temperatureData)
-        firebaseListener(luminosidade, binding.luminosityData)
-    }
-
-    private fun firebaseListener(reference: DatabaseReference, textView: TextView) {
-        reference.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                textView.text = (snapshot.value as Double).toString()
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                showToastError(error)
-            }
-        })
-    }
-
-    private fun showToastError(error: DatabaseError) {
-        Toast.makeText(context, error.message, Toast.LENGTH_LONG).show()
     }
 
     private fun navigateToFragmentTwo() {
