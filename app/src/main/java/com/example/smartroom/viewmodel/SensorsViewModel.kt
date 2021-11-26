@@ -12,10 +12,7 @@ import kotlinx.coroutines.launch
 class SensorsViewModel(
     private val repository: FirebaseRepository
 ) : ViewModel() {
-
-    private val _state = MutableStateFlow<Resource<Double>>(
-        Resource.Success(0.0)
-    )
+    private val _state = MutableStateFlow<Resource<Double>>(Resource.Success(0.0))
     val state: StateFlow<Resource<Double>> get() = _state
 
     init {
@@ -28,9 +25,7 @@ class SensorsViewModel(
                     is Resource.Failed -> {
                         _state.value = Resource.failed(resource.message)
                     }
-                    is Resource.Loading -> {
-
-                    }
+                    is Resource.Loading -> Unit
                 }
             }
         }
