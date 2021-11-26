@@ -13,16 +13,13 @@ import kotlinx.coroutines.channels.trySendBlocking
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 
+@ExperimentalCoroutinesApi
 class FirebaseRepositoryImpl : FirebaseRepository {
-
-
     private val firebaseDatabaseReference: FirebaseDatabase by lazy {
         Firebase.database
     }
 
-    @ExperimentalCoroutinesApi
     override suspend fun getAllSensorData(): Flow<Resource<Double>> = callbackFlow {
-
         val listener = object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val data = snapshot.value as Double
@@ -35,6 +32,8 @@ class FirebaseRepositoryImpl : FirebaseRepository {
         }
         firebaseDatabaseReference.getReference("temperatura").addValueEventListener(listener)
 
-        awaitClose { firebaseDatabaseReference.getReference("temperatura").removeEventListener(listener) }
+        awaitClose {
+            firebaseDatabaseReference.getReference("temperatura").removeEventListener(listener)
+        }
     }
 }
