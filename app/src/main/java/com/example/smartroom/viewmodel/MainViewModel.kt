@@ -24,43 +24,30 @@ class MainViewModel : ViewModel() {
 
     init {
         viewModelScope.launch {
-            repository.getSensorData(TEMPERATURA_PATH).collect { resource ->
-                when (resource) {
-                    is Resource.Success -> {
-                        _temperatureData.value = Resource.success(resource.data)
-                    }
-                    is Resource.Failed -> {
-                        _temperatureData.value = Resource.failed(resource.message)
-                    }
-                    is Resource.Loading -> _temperatureData.value = Resource.loading()
-                }
-            }
+            getSensorData(TEMPERATURA_PATH, _temperatureData)
         }
 
         viewModelScope.launch {
-            repository.getSensorData(UMIDADE_PATH).collect { resource ->
-                when (resource) {
-                    is Resource.Success -> {
-                        _umidityData.value = Resource.success(resource.data)
-                    }
-                    is Resource.Failed -> {
-                        _umidityData.value = Resource.failed(resource.message)
-                    }
-                    is Resource.Loading -> _umidityData.value = Resource.loading()
-                }
-            }
+            getSensorData(UMIDADE_PATH, _umidityData)
         }
         viewModelScope.launch {
-            repository.getSensorData(LUMINOSIDADE_PATH).collect { resource ->
-                when (resource) {
-                    is Resource.Success -> {
-                        _luminosityData.value = Resource.success(resource.data)
-                    }
-                    is Resource.Failed -> {
-                        _luminosityData.value = Resource.failed(resource.message)
-                    }
-                    is Resource.Loading -> _luminosityData.value = Resource.loading()
+            getSensorData(LUMINOSIDADE_PATH, _luminosityData)
+        }
+    }
+
+    private suspend fun getSensorData(
+        path: String,
+        stateFlow: MutableStateFlow<Resource<Double>>
+    ) {
+        repository.getSensorData(path).collect { resource ->
+            when (resource) {
+                is Resource.Success -> {
+                    stateFlow.value = Resource.success(resource.data)
                 }
+                is Resource.Failed -> {
+                    stateFlow.value = Resource.failed(resource.message)
+                }
+                is Resource.Loading -> stateFlow.value = Resource.loading()
             }
         }
     }
