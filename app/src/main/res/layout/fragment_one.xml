@@ -22,7 +22,6 @@
         app:layout_constraintTop_toBottomOf="@id/temperatureText"
         tools:text="20ºc" />
 
-
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/humidityText"
         android:layout_width="wrap_content"
@@ -36,9 +35,9 @@
         android:id="@+id/humidityData"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="95%"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/humidityText" />
+        app:layout_constraintTop_toBottomOf="@id/humidityText"
+        tools:text="95%" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/luminosityText"
@@ -53,9 +52,9 @@
         android:id="@+id/luminosityData"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="95%"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/luminosityText" />
+        app:layout_constraintTop_toBottomOf="@id/luminosityText"
+        tools:text="95%" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/buttonNavigateToNextFragment"
