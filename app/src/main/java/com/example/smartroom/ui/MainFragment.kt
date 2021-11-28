@@ -16,7 +16,7 @@ import kotlinx.coroutines.launch
 
 
 @ExperimentalCoroutinesApi
-class FragmentOne : Fragment(R.layout.fragment_one) {
+class MainFragment : Fragment(R.layout.fragment_one) {
     private lateinit var binding: FragmentOneBinding
     private val sensorsViewModel = SensorsViewModel()
 
@@ -74,7 +74,7 @@ class FragmentOne : Fragment(R.layout.fragment_one) {
 
     private fun navigateToFragmentTwo() {
         val fromFragmentOneToFragmentTwo =
-            FragmentOneDirections.actionFragmentOneToFragmentTwo()
+            MainFragmentDirections.actionFragmentOneToFragmentTwo()
 
         findNavController().navigate(fromFragmentOneToFragmentTwo)
     }
