@@ -32,7 +32,7 @@
         app:layout_constraintTop_toBottomOf="@id/temperatureData" />
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/humidityData"
+        android:id="@+id/umidityData"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
@@ -46,7 +46,7 @@
         android:layout_marginTop="8dp"
         android:text="Luminosidade"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/humidityData" />
+        app:layout_constraintTop_toBottomOf="@id/umidityData" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/luminosityData"

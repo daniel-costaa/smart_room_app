@@ -3,16 +3,13 @@ package com.example.smartroom.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.smartroom.common.Resource
-import com.example.smartroom.network.FirebaseRepository
 import com.example.smartroom.network.FirebaseRepositoryImpl
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
-class SensorsViewModel(
-    private val repository: FirebaseRepository
-) : ViewModel() {
+class SensorsViewModel : ViewModel() {
     private val _temperatureData = MutableStateFlow<Resource<Double>>(Resource.Success(0.0))
     val temperatureData: StateFlow<Resource<Double>> get() = _temperatureData
 
@@ -24,7 +21,7 @@ class SensorsViewModel(
 
     init {
         viewModelScope.launch {
-            repository.getSensorData(TEMPERATURA_PATH).collect { resource ->
+            FirebaseRepositoryImpl().getSensorData(TEMPERATURA_PATH).collect { resource ->
                 when (resource) {
                     is Resource.Success -> {
                         _temperatureData.value = Resource.success(resource.data)
@@ -36,7 +33,7 @@ class SensorsViewModel(
                 }
             }
 
-            repository.getSensorData(UMIDADE_PATH).collect { resource ->
+            FirebaseRepositoryImpl().getSensorData(UMIDADE_PATH).collect { resource ->
                 when (resource) {
                     is Resource.Success -> {
                         _umidityData.value = Resource.success(resource.data)
@@ -48,7 +45,7 @@ class SensorsViewModel(
                 }
             }
 
-            repository.getSensorData(LUMINOSIDADE_PATH).collect { resource ->
+            FirebaseRepositoryImpl().getSensorData(LUMINOSIDADE_PATH).collect { resource ->
                 when (resource) {
                     is Resource.Success -> {
                         _luminosityData.value = Resource.success(resource.data)

@@ -9,7 +9,6 @@ import androidx.navigation.fragment.findNavController
 import com.example.smartroom.R
 import com.example.smartroom.common.Resource
 import com.example.smartroom.databinding.FragmentOneBinding
-import com.example.smartroom.network.FirebaseRepositoryImpl
 import com.example.smartroom.viewmodel.SensorsViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
@@ -19,7 +18,7 @@ import kotlinx.coroutines.launch
 @ExperimentalCoroutinesApi
 class FragmentOne : Fragment(R.layout.fragment_one) {
     private lateinit var binding: FragmentOneBinding
-    private val sensorsViewModel = SensorsViewModel(FirebaseRepositoryImpl())
+    private val sensorsViewModel = SensorsViewModel()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -53,9 +52,9 @@ class FragmentOne : Fragment(R.layout.fragment_one) {
             sensorsViewModel.umidityData.collect { state ->
                 when (state) {
                     is Resource.Success -> {
-                        binding.humidityData.text = state.data.toString()
+                        binding.umidityData.text = state.data.toString()
                     }
-                    is Resource.Loading -> binding.humidityData.text = "..."
+                    is Resource.Loading -> binding.umidityData.text = "..."
                     is Resource.Failed -> showErrorMsg(state)
                 }
             }
