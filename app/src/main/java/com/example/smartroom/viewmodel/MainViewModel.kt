@@ -5,11 +5,13 @@ import androidx.lifecycle.viewModelScope
 import com.example.smartroom.common.Resource
 import com.example.smartroom.network.FirebaseRepository
 import com.example.smartroom.network.FirebaseRepositoryImpl
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
+@ExperimentalCoroutinesApi
 class MainViewModel : ViewModel() {
     private val repository: FirebaseRepository = FirebaseRepositoryImpl()
 
