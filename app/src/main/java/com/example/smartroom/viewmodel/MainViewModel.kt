@@ -32,6 +32,7 @@ class MainViewModel : ViewModel() {
         viewModelScope.launch {
             getSensorData(UMIDADE_PATH, _umidityData)
         }
+
         viewModelScope.launch {
             getSensorData(LUMINOSIDADE_PATH, _luminosityData)
         }
