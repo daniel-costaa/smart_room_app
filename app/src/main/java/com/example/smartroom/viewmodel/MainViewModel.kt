@@ -10,16 +10,16 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
-class SensorsViewModel : ViewModel() {
+class MainViewModel : ViewModel() {
     private val repository: FirebaseRepository = FirebaseRepositoryImpl()
 
-    private val _temperatureData = MutableStateFlow<Resource<Double>>(Resource.Success(0.0))
+    private val _temperatureData = MutableStateFlow<Resource<Double>>(Resource.Loading())
     val temperatureData: StateFlow<Resource<Double>> get() = _temperatureData
 
-    private val _umidityData = MutableStateFlow<Resource<Double>>(Resource.Success(0.0))
+    private val _umidityData = MutableStateFlow<Resource<Double>>(Resource.Loading())
     val umidityData: StateFlow<Resource<Double>> get() = _umidityData
 
-    private val _luminosityData = MutableStateFlow<Resource<Double>>(Resource.Success(0.0))
+    private val _luminosityData = MutableStateFlow<Resource<Double>>(Resource.Loading())
     val luminosityData: StateFlow<Resource<Double>> get() = _luminosityData
 
     init {
@@ -35,7 +35,9 @@ class SensorsViewModel : ViewModel() {
                     is Resource.Loading -> _temperatureData.value = Resource.loading()
                 }
             }
+        }
 
+        viewModelScope.launch {
             repository.getSensorData(UMIDADE_PATH).collect { resource ->
                 when (resource) {
                     is Resource.Success -> {
@@ -47,7 +49,8 @@ class SensorsViewModel : ViewModel() {
                     is Resource.Loading -> _umidityData.value = Resource.loading()
                 }
             }
-
+        }
+        viewModelScope.launch {
             repository.getSensorData(LUMINOSIDADE_PATH).collect { resource ->
                 when (resource) {
                     is Resource.Success -> {

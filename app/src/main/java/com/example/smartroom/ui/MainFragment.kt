@@ -9,7 +9,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.smartroom.R
 import com.example.smartroom.common.Resource
 import com.example.smartroom.databinding.FragmentOneBinding
-import com.example.smartroom.viewmodel.SensorsViewModel
+import com.example.smartroom.viewmodel.MainViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -18,7 +18,7 @@ import kotlinx.coroutines.launch
 @ExperimentalCoroutinesApi
 class MainFragment : Fragment(R.layout.fragment_one) {
     private lateinit var binding: FragmentOneBinding
-    private val sensorsViewModel = SensorsViewModel()
+    private val mainViewModel = MainViewModel()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -29,7 +29,7 @@ class MainFragment : Fragment(R.layout.fragment_one) {
 
     private fun observeData() {
         lifecycleScope.launch {
-            sensorsViewModel.temperatureData.collect { state ->
+            mainViewModel.temperatureData.collect { state ->
                 when (state) {
                     is Resource.Success -> {
                         binding.temperatureData.text = state.data.toString()
@@ -38,8 +38,11 @@ class MainFragment : Fragment(R.layout.fragment_one) {
                     is Resource.Failed -> showErrorMsg(state)
                 }
             }
+        }
 
-            sensorsViewModel.luminosityData.collect { state ->
+
+        lifecycleScope.launch {
+            mainViewModel.luminosityData.collect { state ->
                 when (state) {
                     is Resource.Success -> {
                         binding.luminosityData.text = state.data.toString()
@@ -48,8 +51,10 @@ class MainFragment : Fragment(R.layout.fragment_one) {
                     is Resource.Failed -> showErrorMsg(state)
                 }
             }
+        }
 
-            sensorsViewModel.umidityData.collect { state ->
+        lifecycleScope.launch {
+            mainViewModel.umidityData.collect { state ->
                 when (state) {
                     is Resource.Success -> {
                         binding.umidityData.text = state.data.toString()
