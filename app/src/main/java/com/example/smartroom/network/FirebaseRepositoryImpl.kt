@@ -18,7 +18,7 @@ class FirebaseRepositoryImpl : FirebaseRepository {
         Firebase.database
     }
 
-    override suspend fun getAllSensorData(): Flow<Resource<Double>> = callbackFlow {
+    override suspend fun getTemperatureData(path: String): Flow<Resource<Double>> = callbackFlow {
         val listener = object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val data = snapshot.value as Double
@@ -29,10 +29,48 @@ class FirebaseRepositoryImpl : FirebaseRepository {
                 trySend(Resource.failed(error.message))
             }
         }
-        firebaseDatabaseReference.getReference("temperatura").addValueEventListener(listener)
+        firebaseDatabaseReference.getReference(path).addValueEventListener(listener)
 
         awaitClose {
-            firebaseDatabaseReference.getReference("temperatura").removeEventListener(listener)
+            firebaseDatabaseReference.getReference(path).removeEventListener(listener)
         }
     }
+
+    override suspend fun getUmidityData(path: String): Flow<Resource<Double>> = callbackFlow {
+        val listener = object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val data = snapshot.value as Double
+                trySend(Resource.success(data))
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                trySend(Resource.failed(error.message))
+            }
+        }
+        firebaseDatabaseReference.getReference(path).addValueEventListener(listener)
+
+        awaitClose {
+            firebaseDatabaseReference.getReference(path).removeEventListener(listener)
+        }
+    }
+
+    override suspend fun getLuminosityData(path: String): Flow<Resource<Double>> = callbackFlow {
+        val listener = object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val data = snapshot.value as Double
+                trySend(Resource.success(data))
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                trySend(Resource.failed(error.message))
+            }
+        }
+        firebaseDatabaseReference.getReference(path).addValueEventListener(listener)
+
+        awaitClose {
+            firebaseDatabaseReference.getReference(path).removeEventListener(listener)
+        }
+    }
+
+
 }

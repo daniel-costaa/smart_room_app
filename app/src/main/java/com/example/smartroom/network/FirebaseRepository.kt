@@ -5,5 +5,7 @@ import kotlinx.coroutines.flow.Flow
 
 
 interface FirebaseRepository {
-    suspend fun getAllSensorData(): Flow<Resource<Double>>
+    suspend fun getTemperatureData(path: String): Flow<Resource<Double>>
+    suspend fun getUmidityData(path: String): Flow<Resource<Double>>
+    suspend fun getLuminosityData(path: String): Flow<Resource<Double>>
 }
