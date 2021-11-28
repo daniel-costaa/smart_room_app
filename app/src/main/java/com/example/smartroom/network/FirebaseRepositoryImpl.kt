@@ -14,11 +14,12 @@ import kotlinx.coroutines.flow.callbackFlow
 
 @ExperimentalCoroutinesApi
 class FirebaseRepositoryImpl : FirebaseRepository {
-    private val firebaseDatabaseReference: FirebaseDatabase by lazy {
-        Firebase.database
-    }
 
-    override suspend fun getTemperatureData(path: String): Flow<Resource<Double>> = callbackFlow {
+    override suspend fun getSensorData(path: String): Flow<Resource<Double>> = callbackFlow {
+        val firebaseDatabaseReference: FirebaseDatabase = Firebase.database
+
+        trySend(Resource.loading())
+
         val listener = object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val data = snapshot.value as Double
@@ -29,48 +30,11 @@ class FirebaseRepositoryImpl : FirebaseRepository {
                 trySend(Resource.failed(error.message))
             }
         }
+
         firebaseDatabaseReference.getReference(path).addValueEventListener(listener)
 
         awaitClose {
             firebaseDatabaseReference.getReference(path).removeEventListener(listener)
         }
     }
-
-    override suspend fun getUmidityData(path: String): Flow<Resource<Double>> = callbackFlow {
-        val listener = object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                val data = snapshot.value as Double
-                trySend(Resource.success(data))
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                trySend(Resource.failed(error.message))
-            }
-        }
-        firebaseDatabaseReference.getReference(path).addValueEventListener(listener)
-
-        awaitClose {
-            firebaseDatabaseReference.getReference(path).removeEventListener(listener)
-        }
-    }
-
-    override suspend fun getLuminosityData(path: String): Flow<Resource<Double>> = callbackFlow {
-        val listener = object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                val data = snapshot.value as Double
-                trySend(Resource.success(data))
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                trySend(Resource.failed(error.message))
-            }
-        }
-        firebaseDatabaseReference.getReference(path).addValueEventListener(listener)
-
-        awaitClose {
-            firebaseDatabaseReference.getReference(path).removeEventListener(listener)
-        }
-    }
-
-
 }
