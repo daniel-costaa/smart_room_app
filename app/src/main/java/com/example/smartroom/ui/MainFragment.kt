@@ -28,19 +28,26 @@ class MainFragment : Fragment(R.layout.fragment_one) {
     }
 
     private fun observeData() {
+        observeTemperature()
+        observeLuminosity()
+        observeUmidity()
+    }
+
+    private fun observeUmidity() {
         lifecycleScope.launch {
-            mainViewModel.temperatureData.collect { state ->
+            mainViewModel.umidityData.collect { state ->
                 when (state) {
                     is Resource.Success -> {
-                        binding.temperatureData.text = state.data.toString()
+                        binding.umidityData.text = state.data.toString()
                     }
-                    is Resource.Loading -> binding.temperatureData.text = "..."
+                    is Resource.Loading -> binding.umidityData.text = "..."
                     is Resource.Failed -> showErrorMsg(state)
                 }
             }
         }
+    }
 
-
+    private fun observeLuminosity() {
         lifecycleScope.launch {
             mainViewModel.luminosityData.collect { state ->
                 when (state) {
@@ -52,14 +59,16 @@ class MainFragment : Fragment(R.layout.fragment_one) {
                 }
             }
         }
+    }
 
+    private fun observeTemperature() {
         lifecycleScope.launch {
-            mainViewModel.umidityData.collect { state ->
+            mainViewModel.temperatureData.collect { state ->
                 when (state) {
                     is Resource.Success -> {
-                        binding.umidityData.text = state.data.toString()
+                        binding.temperatureData.text = state.data.toString()
                     }
-                    is Resource.Loading -> binding.umidityData.text = "..."
+                    is Resource.Loading -> binding.temperatureData.text = "..."
                     is Resource.Failed -> showErrorMsg(state)
                 }
             }
