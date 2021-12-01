@@ -73,4 +73,6 @@ dependencies {
     // Firebase Cloud Firestore (Kotlin)
     implementation 'com.google.firebase:firebase-database-ktx:20.0.2'
 
+    // Graphs
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 }
