@@ -3,4 +3,7 @@
     <string name="temperature">Temperatura: %1$.2f%%</string>
     <string name="luminosity">Luminosidade: %1$.2f%%</string>
     <string name="umidity">Umidade: %1$.2fºC</string>
+    <string name="umidade">Umidade</string>
+    <string name="temperatura">Temperatura</string>
+    <string name="luminosidade">Luminosidade</string>
 </resources>
