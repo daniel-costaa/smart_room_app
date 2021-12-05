@@ -114,7 +114,7 @@ class MainFragment : Fragment(R.layout.main_fragment) {
             mainViewModel.umidityData.collect { state ->
                 when (state) {
                     is Resource.Success -> {
-                        binding.umidityData.text = "${state.data}%"
+                        binding.umidityData.text = getString(R.string.umidity, state.data)
                     }
                     is Resource.Loading -> binding.umidityData.text = "..."
                     is Resource.Failed -> showErrorMsg(state)
@@ -128,7 +128,7 @@ class MainFragment : Fragment(R.layout.main_fragment) {
             mainViewModel.luminosityData.collect { state ->
                 when (state) {
                     is Resource.Success -> {
-                        binding.luminosityData.text = "${state.data}%"
+                        binding.luminosityData.text = getString(R.string.luminosity, state.data)
                     }
                     is Resource.Loading -> binding.luminosityData.text = "..."
                     is Resource.Failed -> showErrorMsg(state)
@@ -142,7 +142,7 @@ class MainFragment : Fragment(R.layout.main_fragment) {
             mainViewModel.temperatureData.collect { state ->
                 when (state) {
                     is Resource.Success -> {
-                        binding.temperatureData.text = "${state.data} ºC"
+                        binding.temperatureData.text = getString(R.string.temperature, state.data)
                     }
                     is Resource.Loading -> binding.temperatureData.text = "..."
                     is Resource.Failed -> showErrorMsg(state)
