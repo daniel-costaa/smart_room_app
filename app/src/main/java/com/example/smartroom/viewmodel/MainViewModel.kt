@@ -5,6 +5,8 @@ import androidx.lifecycle.viewModelScope
 import com.example.smartroom.common.Resource
 import com.example.smartroom.network.FirebaseRepository
 import com.example.smartroom.network.FirebaseRepositoryImpl
+import com.github.mikephil.charting.data.Entry
+import com.github.mikephil.charting.data.LineDataSet
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -24,27 +26,54 @@ class MainViewModel : ViewModel() {
     private val _luminosityData = MutableStateFlow<Resource<Double>>(Resource.Loading())
     val luminosityData: StateFlow<Resource<Double>> get() = _luminosityData
 
+    private val umidityListOfValues = mutableListOf<Entry>()
+    private val _umidityDataSet = MutableStateFlow(LineDataSet(umidityListOfValues, "TESTE"))
+    val umidityDataSet = _umidityDataSet
+
+    private val luminosityListOfValues = mutableListOf<Entry>()
+    private val _luminosityDataSet = MutableStateFlow(LineDataSet(luminosityListOfValues, "TESTE"))
+    val luminosityDataSet = _luminosityDataSet
+
+    private val temperatureListOfValues = mutableListOf<Entry>()
+    private val _temperatureDataSet =
+        MutableStateFlow(LineDataSet(temperatureListOfValues, "TESTE"))
+    val temperatureDataSet = _temperatureDataSet
+
     init {
         viewModelScope.launch {
-            getSensorData(TEMPERATURA_PATH, _temperatureData)
+            getSensorData(
+                TEMPERATURA_PATH,
+                _temperatureData,
+                temperatureListOfValues,
+                _temperatureDataSet
+            )
         }
 
         viewModelScope.launch {
-            getSensorData(UMIDADE_PATH, _umidityData)
+            getSensorData(UMIDADE_PATH, _umidityData, umidityListOfValues, _umidityDataSet)
         }
 
         viewModelScope.launch {
-            getSensorData(LUMINOSIDADE_PATH, _luminosityData)
+            getSensorData(
+                LUMINOSIDADE_PATH,
+                _luminosityData,
+                luminosityListOfValues,
+                _luminosityDataSet
+            )
         }
     }
 
     private suspend fun getSensorData(
         path: String,
-        stateFlow: MutableStateFlow<Resource<Double>>
+        stateFlow: MutableStateFlow<Resource<Double>>,
+        listOfValues: MutableList<Entry>,
+        dataset: MutableStateFlow<LineDataSet>
     ) {
         repository.getSensorData(path).collect { resource ->
             when (resource) {
                 is Resource.Success -> {
+                    listOfValues.add(Entry(listOfValues.size.toFloat(), resource.data.toFloat()))
+                    dataset.value = LineDataSet(listOfValues, "TESTE")
                     stateFlow.value = Resource.success(resource.data)
                 }
                 is Resource.Failed -> {

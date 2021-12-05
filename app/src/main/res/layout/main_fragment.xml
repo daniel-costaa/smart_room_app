@@ -4,13 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".ui.MainFragment">
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/temperatureText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
         android:text="Temperatura"
+        android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -18,6 +21,7 @@
         android:id="@+id/temperatureData"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="@id/temperatureText"
         app:layout_constraintTop_toBottomOf="@id/temperatureText"
         tools:text="20ºc" />
@@ -28,13 +32,15 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="Umidade"
+        android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/temperatureData" />
+        app:layout_constraintTop_toBottomOf="@id/lineChartTemperature" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/umidityData"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/humidityText"
         tools:text="95%" />
@@ -45,24 +51,41 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="Luminosidade"
+        android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/umidityData" />
+        app:layout_constraintTop_toBottomOf="@id/lineChartUmidity" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/luminosityData"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/luminosityText"
         tools:text="95%" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/buttonNavigateToNextFragment"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Navigate to next fragment"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/lineChartUmidity"
+        android:layout_width="0dp"
+        android:layout_height="150dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/umidityData" />
+
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/lineChartTemperature"
+        android:layout_width="0dp"
+        android:layout_height="150dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/temperatureData" />
+
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/lineChartLuminosity"
+        android:layout_width="0dp"
+        android:layout_height="150dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/luminosityData" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -9,7 +9,7 @@
         android:id="@+id/fragmentOne"
         android:name="com.example.smartroom.ui.MainFragment"
         android:label="fragment_one"
-        tools:layout="@layout/fragment_one" >
+        tools:layout="@layout/main_fragment" >
         <action
             android:id="@+id/action_fragmentOne_to_fragmentTwo"
             app:destination="@id/fragmentTwo"
