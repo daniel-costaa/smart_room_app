@@ -26,8 +26,6 @@ class MainFragment : Fragment(R.layout.main_fragment) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = MainFragmentBinding.bind(view)
-        binding.lineChartTemperature.setTouchEnabled(true)
-        binding.lineChartTemperature.setPinchZoom(true)
 
         initiaLizeLineChart(binding.lineChartLuminosity)
         initiaLizeLineChart(binding.lineChartTemperature, true)
@@ -50,6 +48,8 @@ class MainFragment : Fragment(R.layout.main_fragment) {
         val yAxis = chart.axisLeft
         xAxis.setDrawGridLines(false)
         xAxis.setDrawAxisLine(false)
+        chart.setTouchEnabled(true)
+        chart.setPinchZoom(true)
 
         yAxis.axisMaximum = if (isTemperatureChart) {
             40.toFloat()
