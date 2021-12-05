@@ -14,6 +14,7 @@
         android:layout_marginTop="50dp"
         android:text="Temperatura"
         android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -22,17 +23,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="@id/temperatureText"
         app:layout_constraintStart_toStartOf="@id/temperatureText"
         app:layout_constraintTop_toBottomOf="@id/temperatureText"
         tools:text="20ºc" />
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/humidityText"
+        android:id="@+id/umidityText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="Umidade"
         android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/lineChartTemperature" />
 
@@ -41,8 +44,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/humidityText"
+        app:layout_constraintEnd_toEndOf="@id/umidityText"
+        app:layout_constraintStart_toStartOf="@id/umidityText"
+        app:layout_constraintTop_toBottomOf="@id/umidityText"
         tools:text="95%" />
 
     <com.google.android.material.textview.MaterialTextView
@@ -52,6 +56,7 @@
         android:layout_marginTop="8dp"
         android:text="Luminosidade"
         android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/lineChartUmidity" />
 
@@ -60,7 +65,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/luminosityText"
+        app:layout_constraintStart_toStartOf="@id/luminosityText"
         app:layout_constraintTop_toBottomOf="@id/luminosityText"
         tools:text="95%" />
 

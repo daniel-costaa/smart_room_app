@@ -36,6 +36,15 @@ class MainFragment : Fragment(R.layout.main_fragment) {
         observeData()
     }
 
+    private fun observeData() {
+        observeTemperature()
+        observeLuminosity()
+        observeUmidity()
+        observeUmidityGraph()
+        observeTemperatureGraph()
+        observeLuminosityGraph()
+    }
+
     private fun initiaLizeLineChart(chart: LineChart, isTemperatureChart: Boolean = false) {
         val xAxis = chart.xAxis
         val yAxis = chart.axisLeft
@@ -58,15 +67,6 @@ class MainFragment : Fragment(R.layout.main_fragment) {
         chart.description.isEnabled = false
     }
 
-    private fun observeData() {
-        observeTemperature()
-        observeLuminosity()
-        observeUmidity()
-        observeUmidityGraph()
-        observeTemperatureGraph()
-        observeLuminosityGraph()
-    }
-
     private fun observeUmidityGraph() {
         lifecycleScope.launch {
             mainViewModel.umidityDataSet.collect { dataset ->
@@ -75,18 +75,6 @@ class MainFragment : Fragment(R.layout.main_fragment) {
                 binding.lineChartUmidity.invalidate()
             }
         }
-    }
-
-    private fun initializeDataset(dataset: LineDataSet) {
-        dataset.setDrawCircleHole(true)
-        dataset.setCircleColor(Color.BLACK)
-        dataset.color = Color.BLACK
-        dataset.valueTextColor = Color.GRAY
-        dataset.highLightColor = Color.RED
-        dataset.setDrawValues(false)
-        dataset.lineWidth = 1.5f
-        dataset.isHighlightEnabled = true
-        dataset.setDrawHighlightIndicators(false)
     }
 
     private fun observeTemperatureGraph() {
@@ -109,13 +97,24 @@ class MainFragment : Fragment(R.layout.main_fragment) {
         }
     }
 
+    private fun initializeDataset(dataset: LineDataSet) {
+        dataset.setDrawCircleHole(true)
+        dataset.setCircleColor(Color.BLACK)
+        dataset.color = Color.BLACK
+        dataset.valueTextColor = Color.GRAY
+        dataset.highLightColor = Color.RED
+        dataset.setDrawValues(false)
+        dataset.lineWidth = 1.5f
+        dataset.isHighlightEnabled = true
+        dataset.setDrawHighlightIndicators(false)
+    }
 
     private fun observeUmidity() {
         lifecycleScope.launch {
             mainViewModel.umidityData.collect { state ->
                 when (state) {
                     is Resource.Success -> {
-                        binding.umidityData.text = state.data.toString()
+                        binding.umidityData.text = "${state.data}%"
                     }
                     is Resource.Loading -> binding.umidityData.text = "..."
                     is Resource.Failed -> showErrorMsg(state)
@@ -129,7 +128,7 @@ class MainFragment : Fragment(R.layout.main_fragment) {
             mainViewModel.luminosityData.collect { state ->
                 when (state) {
                     is Resource.Success -> {
-                        binding.luminosityData.text = state.data.toString()
+                        binding.luminosityData.text = "${state.data}%"
                     }
                     is Resource.Loading -> binding.luminosityData.text = "..."
                     is Resource.Failed -> showErrorMsg(state)
@@ -143,7 +142,7 @@ class MainFragment : Fragment(R.layout.main_fragment) {
             mainViewModel.temperatureData.collect { state ->
                 when (state) {
                     is Resource.Success -> {
-                        binding.temperatureData.text = state.data.toString()
+                        binding.temperatureData.text = "${state.data} ºC"
                     }
                     is Resource.Loading -> binding.temperatureData.text = "..."
                     is Resource.Failed -> showErrorMsg(state)
